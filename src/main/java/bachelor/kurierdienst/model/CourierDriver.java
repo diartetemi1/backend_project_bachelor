@@ -30,7 +30,7 @@ public class CourierDriver {
     @Column(name = "last_name")
     private String lastName;
 
-    @Size(max = 20)
+    //@Size(max = 20)
     @Column(name = "email")
     private String email;
 
