@@ -1,104 +1,95 @@
 package bachelor.kurierdienst.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "courier_driver")
 public class CourierDriver {
 
-	public CourierDriver() {
+    public CourierDriver() {
 
-	}
+    }
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "driver_id")
-	private Integer driverID;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "driver_id")
+    private Integer driverID;
 
-	@JsonIgnoreProperties({"courierDriver","customer"})
-	@OneToMany(mappedBy = "courierDriver", cascade = CascadeType.ALL)
-	private List<Trip> trips = new ArrayList<Trip>();
-	
-	
-	@Column(name = "first_name")
-	private String firstName;
+    @JsonIgnoreProperties({"courierDriver", "customer"})
+    @OneToMany(mappedBy = "courierDriver", cascade = CascadeType.ALL)
+    private List<Trip> trips = new ArrayList<Trip>();
 
-	@Column(name = "last_name")
-	private String lastName;
 
-	@Size(max=20)
-	@Column(name = "email")
-	private String email;
+    @Column(name = "first_name")
+    private String firstName;
 
-	@Column(name = "phone_number")
-	private String phoneNumber;
+    @Column(name = "last_name")
+    private String lastName;
 
-	public Integer getDriverID() {
-		return driverID;
-	}
+    @Size(max = 20)
+    @Column(name = "email")
+    private String email;
 
-	public void setDriverID(Integer driverID) {
-		this.driverID = driverID;
-	}
+    @Column(name = "phone_number")
+    private String phoneNumber;
 
-	public String getFirstName() {
-		return firstName;
-	}
+    public Integer getDriverID() {
+        return driverID;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    public void setDriverID(Integer driverID) {
+        this.driverID = driverID;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getLastName() {
+        return lastName;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-	public List<Trip> getTrips() {
-		return trips;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setTrips(List<Trip> trips) {
-		this.trips = trips;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public List<Trip> getTrips() {
+        return trips;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public void setTrips(List<Trip> trips) {
+        this.trips = trips;
+    }
 
-	public CourierDriver(String firstName, String lastName, String email, String phoneNumber) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public CourierDriver(String firstName, String lastName, String email, String phoneNumber) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+    }
 
 }
