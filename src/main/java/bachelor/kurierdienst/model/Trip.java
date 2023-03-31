@@ -7,7 +7,6 @@ import java.sql.Date;
 
 import jakarta.persistence.*;
 
-@Table(name = "trip")
 @Entity
 public class Trip {
 

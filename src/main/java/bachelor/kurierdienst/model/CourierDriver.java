@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "courier_driver")
 public class CourierDriver {
 
     public CourierDriver() {
