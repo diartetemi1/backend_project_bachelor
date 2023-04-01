@@ -22,7 +22,7 @@ public class CourierDriver {
 
     @JsonIgnoreProperties({"courierDriver", "customer"})
     @OneToMany(mappedBy = "courierDriver", cascade = CascadeType.ALL)
-    private List<Trip> trips = new ArrayList<Trip>();
+    private List<Trip> trips = new ArrayList<>();
 
     @Column(name = "first_name")
     private String firstName;

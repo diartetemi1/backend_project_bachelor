@@ -23,7 +23,7 @@ public class Invoice {
 
     @JsonIgnoreProperties("customer")
     @OneToMany(mappedBy = "invoice", fetch = FetchType.EAGER)
-    private List<Trip> trips = new ArrayList<Trip>();
+    private List<Trip> trips = new ArrayList<>();
 
     @JsonIgnoreProperties({"trips", "invoices"})
     @ManyToOne

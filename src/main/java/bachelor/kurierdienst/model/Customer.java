@@ -23,11 +23,11 @@ public class Customer {
 
     @JsonIgnoreProperties("customer")
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Trip> trips = new ArrayList<Trip>();
+    private List<Trip> trips = new ArrayList<>();
 
     @JsonIgnoreProperties("customer")
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Invoice> invoices = new ArrayList<Invoice>();
+    private List<Invoice> invoices = new ArrayList<>();
 
     @Column(name = "name")
     private String name;
