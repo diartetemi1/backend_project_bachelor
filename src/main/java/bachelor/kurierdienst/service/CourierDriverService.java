@@ -3,6 +3,7 @@ package bachelor.kurierdienst.service;
 import bachelor.kurierdienst.dto.CourierDriverDto;
 import bachelor.kurierdienst.model.CourierDriver;
 import bachelor.kurierdienst.repository.CourierDriverRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CourierDriverService {
 
     private final CourierDriverRepository courierDriverRepository;
     private final ModelMapper modelMapper;
-
-
-    public CourierDriverService(CourierDriverRepository courierDriverRepository, ModelMapper modelMapper) {
-        this.courierDriverRepository = courierDriverRepository;
-        this.modelMapper = modelMapper;
-    }
 
     public List<CourierDriver> getAll(){
         return courierDriverRepository.findAll();

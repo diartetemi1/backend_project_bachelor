@@ -7,13 +7,16 @@ import bachelor.kurierdienst.model.Trip;
 import bachelor.kurierdienst.repository.CustomerRepository;
 import bachelor.kurierdienst.repository.InvoiceRepository;
 import bachelor.kurierdienst.repository.TripRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
@@ -21,13 +24,6 @@ public class InvoiceService {
     private final TripRepository tripRepository;
     private final ModelMapper modelMapper;
 
-
-    public InvoiceService(InvoiceRepository invoiceRepository, CustomerRepository customerRepository, TripRepository tripRepository, ModelMapper modelMapper) {
-        this.invoiceRepository = invoiceRepository;
-        this.customerRepository = customerRepository;
-        this.tripRepository = tripRepository;
-        this.modelMapper = modelMapper;
-    }
 
     public List<Invoice> getAll(){
         return invoiceRepository.findAll();

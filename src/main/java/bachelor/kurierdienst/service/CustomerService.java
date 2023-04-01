@@ -3,6 +3,7 @@ package bachelor.kurierdienst.service;
 import bachelor.kurierdienst.dto.CustomerDto;
 import bachelor.kurierdienst.model.Customer;
 import bachelor.kurierdienst.repository.CustomerRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +11,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class CustomerService {
 
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
-
-
-    public CustomerService(CustomerRepository customerRepository, ModelMapper modelMapper) {
-        this.customerRepository = customerRepository;
-        this.modelMapper = modelMapper;
-    }
 
     public List<Customer> getAll(){
         return customerRepository.findAll();

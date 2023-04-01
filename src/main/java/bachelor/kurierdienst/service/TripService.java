@@ -7,6 +7,7 @@ import bachelor.kurierdienst.model.Trip;
 import bachelor.kurierdienst.repository.CourierDriverRepository;
 import bachelor.kurierdienst.repository.CustomerRepository;
 import bachelor.kurierdienst.repository.TripRepository;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -14,19 +15,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class TripService {
 
     private final TripRepository tripRepository;
     private final CustomerRepository customerRepository;
     private final CourierDriverRepository courierDriverRepository;
     private final ModelMapper modelMapper;
-
-    public TripService(TripRepository tripRepository, CustomerRepository customerRepository, CourierDriverRepository courierDriverRepository, ModelMapper modelMapper) {
-        this.tripRepository = tripRepository;
-        this.customerRepository = customerRepository;
-        this.courierDriverRepository = courierDriverRepository;
-        this.modelMapper = modelMapper;
-    }
 
     public List<Trip> getAll(){
         return tripRepository.findAll();
