@@ -5,7 +5,7 @@ import java.util.*;
 import bachelor.kurierdienst.dto.CourierDriverDto;
 import bachelor.kurierdienst.model.CourierDriver;
 import bachelor.kurierdienst.service.CourierDriverService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,10 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/")
+@RequiredArgsConstructor
 public class CourierDriverController {
 
-	@Autowired
-	private CourierDriverService courierDriverService;
+	private final CourierDriverService courierDriverService;
 
 	@GetMapping("/drivers")
 	public ResponseEntity<List<CourierDriver>> getCourierDrivers() {

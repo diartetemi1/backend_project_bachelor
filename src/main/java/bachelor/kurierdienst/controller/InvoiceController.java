@@ -4,7 +4,7 @@ import java.util.*;
 
 import bachelor.kurierdienst.dto.InvoiceDto;
 import bachelor.kurierdienst.service.InvoiceService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,10 +21,10 @@ import bachelor.kurierdienst.model.Invoice;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/")
+@RequiredArgsConstructor
 public class InvoiceController {
 
-	@Autowired
-	private InvoiceService invoiceService;
+	private final InvoiceService invoiceService;
 
 	@GetMapping("/invoices")
 	public ResponseEntity<List<Invoice>> getInvoices() {

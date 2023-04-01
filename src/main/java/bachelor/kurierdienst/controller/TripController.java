@@ -3,7 +3,7 @@ package bachelor.kurierdienst.controller;
 import java.util.*;
 import bachelor.kurierdienst.dto.TripDto;
 import bachelor.kurierdienst.service.TripService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,10 +19,10 @@ import bachelor.kurierdienst.model.Trip;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/")
+@RequiredArgsConstructor
 public class TripController {
 
-	@Autowired
-	private TripService tripService;
+	private final TripService tripService;
 
 	@GetMapping("/trips")
 	public ResponseEntity<List<Trip>> getTrips() {

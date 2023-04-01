@@ -4,7 +4,7 @@ import java.util.*;
 
 import bachelor.kurierdienst.dto.CustomerDto;
 import bachelor.kurierdienst.service.CustomerService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,10 +21,10 @@ import bachelor.kurierdienst.model.Customer;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/")
+@RequiredArgsConstructor
 public class CustomerController {
 
-	@Autowired
-	private CustomerService customerService;
+	private final CustomerService customerService;
 
 	@GetMapping("/customers")
 	public ResponseEntity<List<Customer>> getCustomers() {
@@ -43,7 +43,7 @@ public class CustomerController {
 		return ResponseEntity.ok(customer);
 
 	}
-	
+
 	@PostMapping("/customers")
 	public ResponseEntity<Customer> createCustomer(@RequestBody CustomerDto customerDto) {
 
@@ -96,5 +96,5 @@ public class CustomerController {
 
 	}
 
-	
+
 }
