@@ -17,17 +17,17 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final ModelMapper modelMapper;
 
-    public List<Customer> getAll(){
+    public List<Customer> getAll() {
         return customerRepository.findAll();
     }
 
-    public Customer getById(Integer customerNumber){
+    public Customer getById(Integer customerNumber) {
 
         return customerRepository.findById(customerNumber).orElse(null);
 
     }
 
-    public Customer create(CustomerDto customerDto){
+    public Customer create(CustomerDto customerDto) {
 
         Customer customer = modelMapper.map(customerDto, Customer.class);
         customer.setCustomerID(null);
@@ -35,10 +35,10 @@ public class CustomerService {
 
     }
 
-    public Customer update(Integer customerNumber, CustomerDto customerDto){
+    public Customer update(Integer customerNumber, CustomerDto customerDto) {
 
         Optional<Customer> customerOptional = customerRepository.findById(customerNumber);
-        if(!customerOptional.isPresent()){
+        if (!customerOptional.isPresent()) {
             return null;
         }
 
@@ -49,10 +49,10 @@ public class CustomerService {
 
     }
 
-    public boolean delete(Integer customerNumber){
+    public boolean delete(Integer customerNumber) {
 
         Optional<Customer> customerOptional = customerRepository.findById(customerNumber);
-        if(!customerOptional.isPresent()){
+        if (!customerOptional.isPresent()) {
             return false;
         }
 

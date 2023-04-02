@@ -1,22 +1,15 @@
 package bachelor.kurierdienst.controller;
 
-import java.util.*;
-
 import bachelor.kurierdienst.dto.InvoiceDto;
+import bachelor.kurierdienst.model.Invoice;
 import bachelor.kurierdienst.service.InvoiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import bachelor.kurierdienst.model.Invoice;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -24,50 +17,30 @@ import bachelor.kurierdienst.model.Invoice;
 @RequiredArgsConstructor
 public class InvoiceController {
 
-	private final InvoiceService invoiceService;
+    private final InvoiceService invoiceService;
 
-	@GetMapping
-	public ResponseEntity<List<Invoice>> getInvoices() {
+    @GetMapping
+    public ResponseEntity<List<Invoice>> getInvoices() {
 
-		return ResponseEntity.ok(invoiceService.getAll());
+        return ResponseEntity.ok(invoiceService.getAll());
 
-	}
+    }
 
-	@GetMapping("/{invoiceNumber}")
-	public ResponseEntity<Invoice> getInvoiceById(@PathVariable Integer invoiceNumber) {
+    @GetMapping("/{invoiceNumber}")
+    public ResponseEntity<Invoice> getInvoiceById(@PathVariable Integer invoiceNumber) {
 
-		Invoice invoice = invoiceService.getById(invoiceNumber);
-		if (invoice == null){
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(invoice);
+        Invoice invoice = invoiceService.getById(invoiceNumber);
+        if (invoice == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(invoice);
 
-	}
+    }
 
-	@PostMapping
-	public ResponseEntity<Invoice> createInvoice(@RequestBody InvoiceDto invoiceDto) {
+    @PostMapping
+    public ResponseEntity<Invoice> createInvoice(@RequestBody InvoiceDto invoiceDto) {
 
-		//REQUEST BODY BEISPIEL FÜR POSTMAN
-
-//		{
-//				"datum": "2022-06-25",
-//				"endBetrag": 450,
-//				"customerId": 1,
-//				"tripsIds": [1,2]
-//		}
-
-		Invoice invoice = invoiceService.create(invoiceDto);
-		if(invoice == null) return ResponseEntity.notFound().build();
-
-		return ResponseEntity.ok(invoice);
-
-	}
-
-	@PutMapping("/{invoiceNumber}")
-	public ResponseEntity<Invoice> updateInvoice(@PathVariable Integer invoiceNumber,
-												   @RequestBody InvoiceDto invoiceDto) {
-
-		//REQUEST BODY BEISPIEL FÜR POSTMAN
+        //REQUEST BODY BEISPIEL FÜR POSTMAN
 
 //		{
 //				"datum": "2022-06-25",
@@ -76,22 +49,42 @@ public class InvoiceController {
 //				"tripsIds": [1,2]
 //		}
 
-		Invoice invoice = invoiceService.update(invoiceNumber, invoiceDto);
-		if(invoice == null) return ResponseEntity.notFound().build();
+        Invoice invoice = invoiceService.create(invoiceDto);
+        if (invoice == null) return ResponseEntity.notFound().build();
 
-		return ResponseEntity.ok(invoice);
+        return ResponseEntity.ok(invoice);
 
-	}
+    }
 
-	@DeleteMapping("/{invoiceNumber}")
-	public ResponseEntity<Map<String, Boolean>> deleteInvoice(@PathVariable Integer invoiceNumber) {
+    @PutMapping("/{invoiceNumber}")
+    public ResponseEntity<Invoice> updateInvoice(@PathVariable Integer invoiceNumber,
+                                                 @RequestBody InvoiceDto invoiceDto) {
 
-		boolean isDeleted = invoiceService.delete(invoiceNumber);
-		if(!isDeleted) return ResponseEntity.notFound().build();
+        //REQUEST BODY BEISPIEL FÜR POSTMAN
 
-		Map<String, Boolean> response = new HashMap<>();
-		response.put("deleted", Boolean.TRUE);
-		return ResponseEntity.ok(response);
+//		{
+//				"datum": "2022-06-25",
+//				"endBetrag": 450,
+//				"customerId": 1,
+//				"tripsIds": [1,2]
+//		}
 
-	}
+        Invoice invoice = invoiceService.update(invoiceNumber, invoiceDto);
+        if (invoice == null) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok(invoice);
+
+    }
+
+    @DeleteMapping("/{invoiceNumber}")
+    public ResponseEntity<Map<String, Boolean>> deleteInvoice(@PathVariable Integer invoiceNumber) {
+
+        boolean isDeleted = invoiceService.delete(invoiceNumber);
+        if (!isDeleted) return ResponseEntity.notFound().build();
+
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
+
+    }
 }

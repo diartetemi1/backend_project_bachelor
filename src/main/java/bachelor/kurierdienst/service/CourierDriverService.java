@@ -17,17 +17,17 @@ public class CourierDriverService {
     private final CourierDriverRepository courierDriverRepository;
     private final ModelMapper modelMapper;
 
-    public List<CourierDriver> getAll(){
+    public List<CourierDriver> getAll() {
         return courierDriverRepository.findAll();
     }
 
-    public CourierDriver getById(Integer driverNumber){
+    public CourierDriver getById(Integer driverNumber) {
 
         return courierDriverRepository.findById(driverNumber).orElse(null);
 
     }
 
-    public CourierDriver create(CourierDriverDto courierDriverDto){
+    public CourierDriver create(CourierDriverDto courierDriverDto) {
 
         CourierDriver courierDriver = modelMapper.map(courierDriverDto, CourierDriver.class);
         courierDriver.setDriverID(null);
@@ -35,10 +35,10 @@ public class CourierDriverService {
 
     }
 
-    public CourierDriver update(Integer driverNumber, CourierDriverDto courierDriverDto){
+    public CourierDriver update(Integer driverNumber, CourierDriverDto courierDriverDto) {
 
         Optional<CourierDriver> courierDriverOptional = courierDriverRepository.findById(driverNumber);
-        if(!courierDriverOptional.isPresent()){
+        if (!courierDriverOptional.isPresent()) {
             return null;
         }
 
@@ -49,10 +49,10 @@ public class CourierDriverService {
 
     }
 
-    public boolean delete(Integer driverNumber){
+    public boolean delete(Integer driverNumber) {
 
         Optional<CourierDriver> courierDriverOptional = courierDriverRepository.findById(driverNumber);
-        if(!courierDriverOptional.isPresent()){
+        if (!courierDriverOptional.isPresent()) {
             return false;
         }
 

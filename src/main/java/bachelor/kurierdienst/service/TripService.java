@@ -23,20 +23,20 @@ public class TripService {
     private final CourierDriverRepository courierDriverRepository;
     private final ModelMapper modelMapper;
 
-    public List<Trip> getAll(){
+    public List<Trip> getAll() {
         return tripRepository.findAll();
     }
 
-    public Trip getById(Integer jobNumber){
+    public Trip getById(Integer jobNumber) {
         return tripRepository.findById(jobNumber).orElse(null);
     }
 
-    public Trip create(TripDto tripDto){
+    public Trip create(TripDto tripDto) {
 
         Optional<Customer> customerOptional = customerRepository.findById(tripDto.getCustomerId());
-        if(!customerOptional.isPresent())return null;
+        if (!customerOptional.isPresent()) return null;
         Optional<CourierDriver> courierDriverOptional = courierDriverRepository.findById(tripDto.getCourierDriverId());
-        if(!courierDriverOptional.isPresent())return null;
+        if (!courierDriverOptional.isPresent()) return null;
 
         Trip trip = modelMapper.map(tripDto, Trip.class);
         trip.setCustomer(customerOptional.get());
@@ -46,22 +46,22 @@ public class TripService {
 
     }
 
-    public Trip update(Integer jobNumber, TripDto tripDto){
+    public Trip update(Integer jobNumber, TripDto tripDto) {
 
         Optional<Trip> tripOptional = tripRepository.findById(jobNumber);
-        if(!tripOptional.isPresent())return null;
+        if (!tripOptional.isPresent()) return null;
 
         Trip trip = tripOptional.get();
         Integer currentTripId = trip.getJobID();
 
-        if(tripDto.getCustomerId() != null){
+        if (tripDto.getCustomerId() != null) {
             Optional<Customer> customerOptional = customerRepository.findById(tripDto.getCustomerId());
-            if(!customerOptional.isPresent())return null;
+            if (!customerOptional.isPresent()) return null;
             trip.setCustomer(customerOptional.get());
         }
-        if(tripDto.getCourierDriverId() != null){
+        if (tripDto.getCourierDriverId() != null) {
             Optional<CourierDriver> courierDriverOptional = courierDriverRepository.findById(tripDto.getCourierDriverId());
-            if(!courierDriverOptional.isPresent())return null;
+            if (!courierDriverOptional.isPresent()) return null;
             trip.setCourierDriver(courierDriverOptional.get());
         }
 
@@ -71,10 +71,10 @@ public class TripService {
 
     }
 
-    public boolean delete(Integer jobNumber){
+    public boolean delete(Integer jobNumber) {
 
         Optional<Trip> tripOptional = tripRepository.findById(jobNumber);
-        if(!tripOptional.isPresent()){
+        if (!tripOptional.isPresent()) {
             return false;
         }
 

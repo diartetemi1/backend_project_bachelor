@@ -25,21 +25,21 @@ public class InvoiceService {
     private final ModelMapper modelMapper;
 
 
-    public List<Invoice> getAll(){
+    public List<Invoice> getAll() {
         return invoiceRepository.findAll();
     }
 
-    public Invoice getById(Integer invoiceNumber){
+    public Invoice getById(Integer invoiceNumber) {
 
         return invoiceRepository.findById(invoiceNumber).orElse(null);
 
     }
 
-    public Invoice create(InvoiceDto invoiceDto){
+    public Invoice create(InvoiceDto invoiceDto) {
 
         Optional<Customer> customerOptional = customerRepository.findById(invoiceDto.getCustomerId());
-        if(!customerOptional.isPresent())return null;
-        if(invoiceDto.getTripsIds() == null)return null;
+        if (!customerOptional.isPresent()) return null;
+        if (invoiceDto.getTripsIds() == null) return null;
 
         Integer[] tripsIds = invoiceDto.getTripsIds();
         List<Trip> trips = new ArrayList<>();
@@ -49,13 +49,13 @@ public class InvoiceService {
         invoice.setInvoiceID(null);
         invoiceRepository.save(invoice);
 
-        for (int i = 0; i < tripsIds.length; i++){
-          Optional<Trip> tripOptional = tripRepository.findById(tripsIds[i]);
-          if(!tripOptional.isPresent())return null;
-          if(tripOptional.get().getCustomer().getCustomerID() != invoiceDto.getCustomerId()) return null;
-          Trip trip = tripOptional.get();
-          trip.setInvoice(invoice);
-          trips.add(trip);
+        for (int i = 0; i < tripsIds.length; i++) {
+            Optional<Trip> tripOptional = tripRepository.findById(tripsIds[i]);
+            if (!tripOptional.isPresent()) return null;
+            if (tripOptional.get().getCustomer().getCustomerID() != invoiceDto.getCustomerId()) return null;
+            Trip trip = tripOptional.get();
+            trip.setInvoice(invoice);
+            trips.add(trip);
         }
 
         invoice.setTrips(trips);
@@ -63,26 +63,26 @@ public class InvoiceService {
 
     }
 
-    public Invoice update(Integer invoiceNumber, InvoiceDto invoiceDto){
+    public Invoice update(Integer invoiceNumber, InvoiceDto invoiceDto) {
 
         Optional<Invoice> invoiceOptional = invoiceRepository.findById(invoiceNumber);
-        if(!invoiceOptional.isPresent()){
+        if (!invoiceOptional.isPresent()) {
             return null;
         }
         Invoice invoice = invoiceOptional.get();
         Integer currentInvoiceId = invoice.getInvoiceID();
         boolean editCustomer = false;
 
-        if(invoiceDto.getCustomerId() != null){
+        if (invoiceDto.getCustomerId() != null) {
             Optional<Customer> customerOptional = customerRepository.findById(invoiceDto.getCustomerId());
-            if(!customerOptional.isPresent())return null;
+            if (!customerOptional.isPresent()) return null;
             invoice.setCustomer(customerOptional.get());
             editCustomer = true;
         }
 
-        if(invoiceDto.getTripsIds() != null){
+        if (invoiceDto.getTripsIds() != null) {
 
-            invoice.getTrips().stream().forEach(t->{
+            invoice.getTrips().stream().forEach(t -> {
                 t.setInvoice(null);
                 tripRepository.save(t);
             });
@@ -93,22 +93,24 @@ public class InvoiceService {
             Integer[] tripsIds = invoiceDto.getTripsIds();
             List<Trip> trips = new ArrayList<>();
 
-            for (int i = 0; i < tripsIds.length; i++){
+            for (int i = 0; i < tripsIds.length; i++) {
                 Optional<Trip> tripOptional = tripRepository.findById(tripsIds[i]);
-                if(!tripOptional.isPresent())return null;
-                if(tripOptional.get().getCustomer().getCustomerID() != invoice.getCustomer().getCustomerID()) return null;
+                if (!tripOptional.isPresent()) return null;
+                if (tripOptional.get().getCustomer().getCustomerID() != invoice.getCustomer().getCustomerID())
+                    return null;
                 Trip trip = tripOptional.get();
                 trip.setInvoice(invoice);
                 trips.add(tripOptional.get());
             }
             invoice.setTrips(trips);
-        }else{
+        } else {
             modelMapper.map(invoiceDto, invoice);
             invoice.setInvoiceID(currentInvoiceId);
-            if(editCustomer){
+            if (editCustomer) {
                 List<Trip> trips = invoice.getTrips();
-                for (int i = 0; i<trips.size(); i++){
-                    if(trips.get(i).getCustomer().getCustomerID() != invoice.getCustomer().getCustomerID()) return null;
+                for (int i = 0; i < trips.size(); i++) {
+                    if (trips.get(i).getCustomer().getCustomerID() != invoice.getCustomer().getCustomerID())
+                        return null;
                 }
             }
         }
@@ -116,14 +118,14 @@ public class InvoiceService {
 
     }
 
-    public boolean delete(Integer invoiceNumber){
+    public boolean delete(Integer invoiceNumber) {
 
         Optional<Invoice> invoiceOptional = invoiceRepository.findById(invoiceNumber);
-        if(!invoiceOptional.isPresent()){
+        if (!invoiceOptional.isPresent()) {
             return false;
         }
         Invoice invoice = invoiceOptional.get();
-        invoice.getTrips().stream().forEach(t->{
+        invoice.getTrips().stream().forEach(t -> {
             t.setInvoice(null);
             tripRepository.save(t);
         });
