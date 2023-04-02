@@ -18,20 +18,20 @@ import bachelor.kurierdienst.model.Trip;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/trips")
 @RequiredArgsConstructor
 public class TripController {
 
 	private final TripService tripService;
 
-	@GetMapping("/trips")
+	@GetMapping
 	public ResponseEntity<List<Trip>> getTrips() {
 
 		return ResponseEntity.ok(tripService.getAll());
 
 	}
 
-	@GetMapping("/trips/{jobNumber}")
+	@GetMapping("/{jobNumber}")
 	public ResponseEntity<Trip> getTripById(@PathVariable Integer jobNumber) {
 
 		Trip trip = tripService.getById(jobNumber);
@@ -42,7 +42,7 @@ public class TripController {
 
 	}
 
-	@PostMapping("/trips")
+	@PostMapping
 	public ResponseEntity<Trip> createTrip(@RequestBody TripDto tripDto) {
 
 		//REQUEST BODY BEISPIEL FÜR POSTMAN
@@ -66,7 +66,7 @@ public class TripController {
 
 	}
 
-	@PutMapping("/trips/{jobNumber}")
+	@PutMapping("/{jobNumber}")
 	public ResponseEntity<Trip> updateTrip(@PathVariable Integer jobNumber,
 												 @RequestBody TripDto tripDto) {
 
@@ -91,7 +91,7 @@ public class TripController {
 
 	}
 
-	@DeleteMapping("/trips/{jobNumber}")
+	@DeleteMapping("/{jobNumber}")
 	public ResponseEntity<Map<String, Boolean>> deleteTrip(@PathVariable Integer jobNumber) {
 
 		boolean isDeleted = tripService.delete(jobNumber);

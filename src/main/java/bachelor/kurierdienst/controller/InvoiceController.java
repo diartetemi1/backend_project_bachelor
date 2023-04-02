@@ -20,20 +20,20 @@ import bachelor.kurierdienst.model.Invoice;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/invoices")
 @RequiredArgsConstructor
 public class InvoiceController {
 
 	private final InvoiceService invoiceService;
 
-	@GetMapping("/invoices")
+	@GetMapping
 	public ResponseEntity<List<Invoice>> getInvoices() {
 
 		return ResponseEntity.ok(invoiceService.getAll());
 
 	}
 
-	@GetMapping("/invoices/{invoiceNumber}")
+	@GetMapping("/{invoiceNumber}")
 	public ResponseEntity<Invoice> getInvoiceById(@PathVariable Integer invoiceNumber) {
 
 		Invoice invoice = invoiceService.getById(invoiceNumber);
@@ -44,7 +44,7 @@ public class InvoiceController {
 
 	}
 
-	@PostMapping("/invoices")
+	@PostMapping
 	public ResponseEntity<Invoice> createInvoice(@RequestBody InvoiceDto invoiceDto) {
 
 		//REQUEST BODY BEISPIEL FÜR POSTMAN
@@ -63,7 +63,7 @@ public class InvoiceController {
 
 	}
 
-	@PutMapping("/invoices/{invoiceNumber}")
+	@PutMapping("/{invoiceNumber}")
 	public ResponseEntity<Invoice> updateInvoice(@PathVariable Integer invoiceNumber,
 												   @RequestBody InvoiceDto invoiceDto) {
 
@@ -83,7 +83,7 @@ public class InvoiceController {
 
 	}
 
-	@DeleteMapping("/invoices/{invoiceNumber}")
+	@DeleteMapping("/{invoiceNumber}")
 	public ResponseEntity<Map<String, Boolean>> deleteInvoice(@PathVariable Integer invoiceNumber) {
 
 		boolean isDeleted = invoiceService.delete(invoiceNumber);

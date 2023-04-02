@@ -20,20 +20,20 @@ import bachelor.kurierdienst.model.Customer;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/customers")
 @RequiredArgsConstructor
 public class CustomerController {
 
 	private final CustomerService customerService;
 
-	@GetMapping("/customers")
+	@GetMapping
 	public ResponseEntity<List<Customer>> getCustomers() {
 
 		return ResponseEntity.ok(customerService.getAll());
 
 	}
 
-	@GetMapping("/customers/{customerNumber}")
+	@GetMapping("/{customerNumber}")
 	public ResponseEntity<Customer> getCustomerById(@PathVariable Integer customerNumber) {
 
 		Customer customer = customerService.getById(customerNumber);
@@ -44,7 +44,7 @@ public class CustomerController {
 
 	}
 
-	@PostMapping("/customers")
+	@PostMapping
 	public ResponseEntity<Customer> createCustomer(@RequestBody CustomerDto customerDto) {
 
 		//REQUEST BODY BEISPIEL FÜR POSTMAN
@@ -62,7 +62,7 @@ public class CustomerController {
 
 	}
 
-	@PutMapping("/customers/{customerNumber}")
+	@PutMapping("/{customerNumber}")
 	public ResponseEntity<Customer> updateCustomer(@PathVariable Integer customerNumber,
 			@RequestBody CustomerDto customerDto) {
 
@@ -84,7 +84,7 @@ public class CustomerController {
 
 	}
 
-	@DeleteMapping("/customers/{customerNumber}")
+	@DeleteMapping("/{customerNumber}")
 	public ResponseEntity<Map<String, Boolean>> deleteCustomer(@PathVariable Integer customerNumber) {
 
 		boolean isDeleted = customerService.delete(customerNumber);

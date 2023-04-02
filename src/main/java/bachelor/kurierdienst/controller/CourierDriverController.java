@@ -19,20 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/api/")
+@RequestMapping("/drivers")
 @RequiredArgsConstructor
 public class CourierDriverController {
 
 	private final CourierDriverService courierDriverService;
 
-	@GetMapping("/drivers")
+	@GetMapping
 	public ResponseEntity<List<CourierDriver>> getCourierDrivers() {
 
 		return ResponseEntity.ok(courierDriverService.getAll());
 
 	}
 
-	@GetMapping("/drivers/{driverNumber}")
+	@GetMapping("/{driverNumber}")
 	public ResponseEntity<CourierDriver> getCourierDriverById(@PathVariable Integer driverNumber) {
 
 		CourierDriver courierDriver = courierDriverService.getById(driverNumber);
@@ -43,7 +43,7 @@ public class CourierDriverController {
 
 	}
 
-	@PostMapping("/drivers")
+	@PostMapping
 	public ResponseEntity<CourierDriver> createCourierDriver(@RequestBody CourierDriverDto CourierDriverDto) {
 
 				//REQUEST BODY BEISPIEL FÜR POSTMAN
@@ -59,7 +59,7 @@ public class CourierDriverController {
 
 	}
 
-	@PutMapping("/drivers/{driverNumber}")
+	@PutMapping("/{driverNumber}")
 	public ResponseEntity<CourierDriver> updateCourierDriver(@PathVariable Integer driverNumber,
 												   @RequestBody CourierDriverDto courierDriverDto) {
 
@@ -79,7 +79,7 @@ public class CourierDriverController {
 
 	}
 
-	@DeleteMapping("/drivers/{driverNumber}")
+	@DeleteMapping("/{driverNumber}")
 	public ResponseEntity<Map<String, Boolean>> deleteCourierDriver(@PathVariable Integer driverNumber) {
 
 		boolean isDeleted = courierDriverService.delete(driverNumber);
