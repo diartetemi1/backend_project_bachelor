@@ -20,56 +20,29 @@ public class CourierDriverController {
 
     @GetMapping
     public ResponseEntity<List<CourierDriver>> getCourierDrivers() {
-
         return ResponseEntity.ok(courierDriverService.getAll());
-
     }
 
     @GetMapping("/{driverNumber}")
     public ResponseEntity<CourierDriver> getCourierDriverById(@PathVariable Integer driverNumber) {
-
         CourierDriver courierDriver = courierDriverService.getById(driverNumber);
         if (courierDriver == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(courierDriver);
-
     }
 
     @PostMapping
     public ResponseEntity<CourierDriver> createCourierDriver(@RequestBody CourierDriverDto CourierDriverDto) {
-
-        //REQUEST BODY BEISPIEL FÜR POSTMAN
-
-//		{
-//				"firstName" : "driver_test",
-//				"lastName" : "driver_test",
-//				"email" : "email_test",
-//				"phoneNumber" : "0123456789"
-//		}
-
         return ResponseEntity.ok(courierDriverService.create(CourierDriverDto));
-
     }
 
     @PutMapping("/{driverNumber}")
     public ResponseEntity<CourierDriver> updateCourierDriver(@PathVariable Integer driverNumber,
                                                              @RequestBody CourierDriverDto courierDriverDto) {
-
-        //REQUEST BODY BEISPIEL FÜR POSTMAN
-
-//		{
-//				"firstName" : "driver_test",
-//				"lastName" : "driver_test",
-//				"email" : "email_test",
-//				"phoneNumber" : "0123456789"
-//		}
-
         CourierDriver courierDriver = courierDriverService.update(driverNumber, courierDriverDto);
         if (courierDriver == null) return ResponseEntity.notFound().build();
-
         return ResponseEntity.ok(courierDriver);
-
     }
 
     @DeleteMapping("/{driverNumber}")
@@ -81,8 +54,6 @@ public class CourierDriverController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
-
     }
-
 
 }

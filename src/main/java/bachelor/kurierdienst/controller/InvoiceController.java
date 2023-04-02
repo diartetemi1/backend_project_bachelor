@@ -38,41 +38,19 @@ public class InvoiceController {
 
     @PostMapping
     public ResponseEntity<Invoice> createInvoice(@RequestBody InvoiceDto invoiceDto) {
-
-        //REQUEST BODY BEISPIEL FÜR POSTMAN
-
-//		{
-//				"datum": "2022-06-25",
-//				"endBetrag": 450,
-//				"customerId": 1,
-//				"tripsIds": [1,2]
-//		}
-
         Invoice invoice = invoiceService.create(invoiceDto);
         if (invoice == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(invoice);
-
     }
 
     @PutMapping("/{invoiceNumber}")
     public ResponseEntity<Invoice> updateInvoice(@PathVariable Integer invoiceNumber,
                                                  @RequestBody InvoiceDto invoiceDto) {
-
-        //REQUEST BODY BEISPIEL FÜR POSTMAN
-
-//		{
-//				"datum": "2022-06-25",
-//				"endBetrag": 450,
-//				"customerId": 1,
-//				"tripsIds": [1,2]
-//		}
-
         Invoice invoice = invoiceService.update(invoiceNumber, invoiceDto);
         if (invoice == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(invoice);
-
     }
 
     @DeleteMapping("/{invoiceNumber}")
@@ -84,6 +62,5 @@ public class InvoiceController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
-
     }
 }

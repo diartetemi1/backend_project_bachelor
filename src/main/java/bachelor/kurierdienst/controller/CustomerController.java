@@ -20,60 +20,30 @@ public class CustomerController {
 
     @GetMapping
     public ResponseEntity<List<Customer>> getCustomers() {
-
         return ResponseEntity.ok(customerService.getAll());
-
     }
 
     @GetMapping("/{customerNumber}")
     public ResponseEntity<Customer> getCustomerById(@PathVariable Integer customerNumber) {
-
         Customer customer = customerService.getById(customerNumber);
         if (customer == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(customer);
-
     }
 
     @PostMapping
     public ResponseEntity<Customer> createCustomer(@RequestBody CustomerDto customerDto) {
-
-        //REQUEST BODY BEISPIEL FÜR POSTMAN
-
-        //{
-        //        "name" : "cust_test",
-        //        "email" : "mail_test",
-        //        "address" : "address_test",
-        //        "city" : "city_test",
-        //        "postalCode" : "postal_test",
-        //        "country" : "country_test"
-        //}
-
         return ResponseEntity.ok(customerService.create(customerDto));
-
     }
 
     @PutMapping("/{customerNumber}")
     public ResponseEntity<Customer> updateCustomer(@PathVariable Integer customerNumber,
                                                    @RequestBody CustomerDto customerDto) {
-
-        //REQUEST BODY BEISPIEL FÜR POSTMAN
-
-        //{
-        //        "name" : "cust_test",
-        //        "email" : "mail_test",
-        //        "address" : "address_test",
-        //        "city" : "city_test",
-        //        "postalCode" : "postal_test",
-        //        "country" : "country_test"
-        //}
-
         Customer customer = customerService.update(customerNumber, customerDto);
         if (customer == null) return ResponseEntity.notFound().build();
 
         return ResponseEntity.ok(customer);
-
     }
 
     @DeleteMapping("/{customerNumber}")
@@ -85,8 +55,6 @@ public class CustomerController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return ResponseEntity.ok(response);
-
     }
-
 
 }
