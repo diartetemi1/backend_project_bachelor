@@ -33,7 +33,7 @@ public class CourierDriverService {
 
     public CourierDriver update(Integer driverNumber, CourierDriverDto courierDriverDto) {
         Optional<CourierDriver> courierDriverOptional = courierDriverRepository.findById(driverNumber);
-        if (!courierDriverOptional.isPresent()) {
+        if (courierDriverOptional.isEmpty()) {
             return null;
         }
 
@@ -45,7 +45,7 @@ public class CourierDriverService {
 
     public boolean delete(Integer driverNumber) {
         Optional<CourierDriver> courierDriverOptional = courierDriverRepository.findById(driverNumber);
-        if (!courierDriverOptional.isPresent()) {
+        if (courierDriverOptional.isEmpty()) {
             return false;
         }
 

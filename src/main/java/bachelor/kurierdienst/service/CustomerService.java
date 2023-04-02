@@ -38,7 +38,7 @@ public class CustomerService {
     public Customer update(Integer customerNumber, CustomerDto customerDto) {
 
         Optional<Customer> customerOptional = customerRepository.findById(customerNumber);
-        if (!customerOptional.isPresent()) {
+        if (customerOptional.isEmpty()) {
             return null;
         }
 
@@ -52,7 +52,7 @@ public class CustomerService {
     public boolean delete(Integer customerNumber) {
 
         Optional<Customer> customerOptional = customerRepository.findById(customerNumber);
-        if (!customerOptional.isPresent()) {
+        if (customerOptional.isEmpty()) {
             return false;
         }
 

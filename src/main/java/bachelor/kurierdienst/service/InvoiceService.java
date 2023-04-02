@@ -38,7 +38,7 @@ public class InvoiceService {
     public Invoice create(InvoiceDto invoiceDto) {
 
         Optional<Customer> customerOptional = customerRepository.findById(invoiceDto.getCustomerId());
-        if (!customerOptional.isPresent()) return null;
+        if (customerOptional.isEmpty()) return null;
         if (invoiceDto.getTripsIds() == null) return null;
 
         Integer[] tripsIds = invoiceDto.getTripsIds();
@@ -51,7 +51,7 @@ public class InvoiceService {
 
         for (int i = 0; i < tripsIds.length; i++) {
             Optional<Trip> tripOptional = tripRepository.findById(tripsIds[i]);
-            if (!tripOptional.isPresent()) return null;
+            if (tripOptional.isEmpty()) return null;
             if (tripOptional.get().getCustomer().getCustomerID() != invoiceDto.getCustomerId()) return null;
             Trip trip = tripOptional.get();
             trip.setInvoice(invoice);
@@ -66,7 +66,7 @@ public class InvoiceService {
     public Invoice update(Integer invoiceNumber, InvoiceDto invoiceDto) {
 
         Optional<Invoice> invoiceOptional = invoiceRepository.findById(invoiceNumber);
-        if (!invoiceOptional.isPresent()) {
+        if (invoiceOptional.isEmpty()) {
             return null;
         }
         Invoice invoice = invoiceOptional.get();
@@ -75,7 +75,7 @@ public class InvoiceService {
 
         if (invoiceDto.getCustomerId() != null) {
             Optional<Customer> customerOptional = customerRepository.findById(invoiceDto.getCustomerId());
-            if (!customerOptional.isPresent()) return null;
+            if (customerOptional.isEmpty()) return null;
             invoice.setCustomer(customerOptional.get());
             editCustomer = true;
         }
@@ -95,7 +95,7 @@ public class InvoiceService {
 
             for (int i = 0; i < tripsIds.length; i++) {
                 Optional<Trip> tripOptional = tripRepository.findById(tripsIds[i]);
-                if (!tripOptional.isPresent()) return null;
+                if (tripOptional.isEmpty()) return null;
                 if (tripOptional.get().getCustomer().getCustomerID() != invoice.getCustomer().getCustomerID())
                     return null;
                 Trip trip = tripOptional.get();
@@ -121,11 +121,11 @@ public class InvoiceService {
     public boolean delete(Integer invoiceNumber) {
 
         Optional<Invoice> invoiceOptional = invoiceRepository.findById(invoiceNumber);
-        if (!invoiceOptional.isPresent()) {
+        if (invoiceOptional.isEmpty()) {
             return false;
         }
         Invoice invoice = invoiceOptional.get();
-        invoice.getTrips().stream().forEach(t -> {
+        invoice.getTrips().forEach(t -> {
             t.setInvoice(null);
             tripRepository.save(t);
         });
