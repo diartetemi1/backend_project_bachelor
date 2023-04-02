@@ -22,21 +22,16 @@ public class CourierDriverService {
     }
 
     public CourierDriver getById(Integer driverNumber) {
-
         return courierDriverRepository.findById(driverNumber).orElse(null);
-
     }
 
     public CourierDriver create(CourierDriverDto courierDriverDto) {
-
         CourierDriver courierDriver = modelMapper.map(courierDriverDto, CourierDriver.class);
         courierDriver.setDriverID(null);
         return courierDriverRepository.save(courierDriver);
-
     }
 
     public CourierDriver update(Integer driverNumber, CourierDriverDto courierDriverDto) {
-
         Optional<CourierDriver> courierDriverOptional = courierDriverRepository.findById(driverNumber);
         if (!courierDriverOptional.isPresent()) {
             return null;
@@ -46,11 +41,9 @@ public class CourierDriverService {
         modelMapper.map(courierDriverDto, courierDriver);
 
         return courierDriverRepository.save(courierDriver);
-
     }
 
     public boolean delete(Integer driverNumber) {
-
         Optional<CourierDriver> courierDriverOptional = courierDriverRepository.findById(driverNumber);
         if (!courierDriverOptional.isPresent()) {
             return false;
@@ -58,8 +51,6 @@ public class CourierDriverService {
 
         courierDriverRepository.deleteById(driverNumber);
         return true;
-
     }
-
 
 }
